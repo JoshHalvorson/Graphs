@@ -110,6 +110,31 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
+        stack = Stack()
+        visited = set()
+        # storing lists of traversed vertices in the stack
+        stack.push([starting_vertex])
+        while stack.size() > 0:
+            # get the list of traversed vertices from the stack
+            current_path = stack.pop()
+            # get the last vertex in the list
+            vertex = current_path[len(current_path) - 1]
+            if vertex is destination_vertex:
+                return current_path
+            # if its not the destination it goes through all the vertices the current
+            # vertex is connected to
+            for next_vert in self.vertices[vertex]:
+                # checks if this vertex has been visited, if not
+                # it adds it to the visited list
+                # then creates a new list of the most
+                # up to date path, by grabbing the old one
+                # and appending the vert to it
+                # then adds it to the stack
+                if next_vert not in visited:
+                    visited.add(next_vert)
+                    new_path = list(current_path)
+                    new_path.append(next_vert)
+                    stack.push(new_path)
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
