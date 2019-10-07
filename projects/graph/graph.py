@@ -55,13 +55,22 @@ class Graph:
                 for next_vert in self.vertices[vertex]:
                     stack.push(next_vert)
 
-    def dft_recursive(self, starting_vertex):
+    def dft_recursive(self, starting_vertex, visited=set()):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
         This should be done using recursion.
         """
-        pass  # TODO
+        # Add node to visited then print
+        visited.add(starting_vertex)
+        print(starting_vertex)
+        # Go though the vertices connected to the current vertex
+        for next_vert in self.vertices[starting_vertex]:
+            # if the next vert is not in visited already, call
+            # the recursive function on it
+            if next_vert not in visited:
+                self.dft_recursive(next_vert, visited)
+        return visited
 
     def bfs(self, starting_vertex, destination_vertex):
         """
@@ -141,6 +150,7 @@ if __name__ == '__main__':
         1, 2, 4, 7, 6, 3, 5
         1, 2, 4, 6, 3, 5, 7
     '''
+    print('Starting dft recursive')
     graph.dft_recursive(1)
 
     '''
