@@ -78,7 +78,31 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
+        queue = Queue()
+        visited = set()
+        # storing lists of traversed vertices in the queue
+        queue.enqueue([starting_vertex])
+        while queue.size() > 0:
+            # get the list of traversed vertices from the queue
+            current_path = queue.dequeue()
+            # get the last vertex in the list
+            vertex = current_path[len(current_path) - 1]
+            if vertex is destination_vertex:
+                return current_path
+            # if its not the destination it goes through all the vertices the current
+            # vertex is connected to
+            for next_vert in self.vertices[vertex]:
+                # checks if this vertex has been visited, if not
+                # it adds it to the visited list
+                # then creates a new list of the most
+                # up to date path, by grabbing the old one
+                # and appending the vert to it
+                # then adds it to the queue
+                if next_vert not in visited:
+                    visited.add(next_vert)
+                    path = list(current_path)
+                    path.append(next_vert)
+                    queue.enqueue(path)
 
     def dfs(self, starting_vertex, destination_vertex):
         """
@@ -86,7 +110,6 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        pass  # TODO
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
@@ -157,6 +180,7 @@ if __name__ == '__main__':
     Valid BFS path:
         [1, 2, 4, 6]
     '''
+    print('Starting bfs')
     print(graph.bfs(1, 6))
 
     '''
@@ -164,4 +188,5 @@ if __name__ == '__main__':
         [1, 2, 4, 6]
         [1, 2, 4, 7, 6]
     '''
+    print('Starting dfs')
     print(graph.dfs(1, 6))
